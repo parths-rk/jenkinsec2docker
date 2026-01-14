@@ -24,5 +24,10 @@ pipeline {
                 }
             }
         }
+        stage('Build Docker Image'){
+            steps{
+                sh 'docker build -t parths-rk/jenkinsec2docker:latest .'
+            }
+        }
     }
 }

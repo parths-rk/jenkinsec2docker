@@ -26,7 +26,8 @@ pipeline {
         }
         stage('Build Docker Image'){
             steps{
-                sh 'docker build -t parths1111/jenkinsec2docker:latest .'
+                sh 'docker build -t parths1111/jenkinsec2docker:${BUILD_NUMBER} .
+                docker tag parths1111/jenkinsec2docker:${BUILD_NUMBER} parths1111/jenkinsec2docker:latest'
             }
         }
         stage('Run Docker Container'){
@@ -52,9 +53,21 @@ pipeline {
              {
                 sh '''
                 echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+                docker push parths1111/jenkinsec2docker:${BUILD_NUMBER}
                 docker push parths1111/jenkinsec2docker:latest
                 '''
              }
+            }
+        }
+        stage('Docker Image  Cleanup'){
+            steps{
+                sh 'docker image  prune -f'
+            }
+        }
+
+        stage('Docker Logout'){
+            steps {
+                sh 'docker logout'
             }
         }
     }

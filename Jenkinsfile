@@ -29,5 +29,15 @@ pipeline {
                 sh 'docker build -t parths-rk/jenkinsec2docker:latest .'
             }
         }
+        stage('Run Docker Container'){
+            steps{
+                sh '''
+                docker stop jenkinsec2docker || true
+                docker rm jenkinsec2docker || true
+                docker run -d -p 3000:3000 \
+                --name jenkinsec2docker \
+                parths-rk/jenkinsec2docker:latest '''
+            }
+        }
     }
 }

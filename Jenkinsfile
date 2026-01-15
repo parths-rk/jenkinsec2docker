@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Build Docker Image'){
             steps{
-                sh 'docker build -t parths-rk/jenkinsec2docker:latest .'
+                sh 'docker build -t parths1111/jenkinsec2docker:latest .'
             }
         }
         stage('Run Docker Container'){
@@ -36,7 +36,7 @@ pipeline {
                 docker rm jenkinsec2docker || true
                 docker run -d -p 3000:3000 \
                 --name jenkinsec2docker \
-                parths-rk/jenkinsec2docker:latest '''
+                parths1111/jenkinsec2docker:latest '''
             }
         }
 
@@ -52,7 +52,7 @@ pipeline {
              {
                 sh '''
                 echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-                docker push parths-rk/jenkinsec2docker:latest
+                docker push parths1111/jenkinsec2docker:latest
                 '''
              }
             }

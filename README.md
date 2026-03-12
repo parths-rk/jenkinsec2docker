@@ -30,6 +30,38 @@ Build a basic Jenkins pipeline that triggers builds manually and creates Docker 
 
 Webhook-based auto-triggering and full CI/CD deployment are not implemented in this phase.
 
+## Pipeline Architecture
+Developer
+   │
+   │ Push Code
+   ▼
+GitHub Repository
+   │
+   │ Webhook Trigger
+   ▼
+Jenkins CI Server
+   │
+   ├── Pull Source Code
+   ├── Build Docker Image
+   ├── Tag Image
+   ├── Push Image to Docker Hub
+   │
+   ▼
+Docker Image Repository
+
+
+## Repository Structure
+jenkins-docker-ci-pipeline
+│
+├── app
+│   └── application code
+│
+├── Dockerfile
+│
+├── Jenkinsfile
+│
+└── README.md
+
 ## Verification
 - Jenkins jobs execute successfully
 - Docker images created
